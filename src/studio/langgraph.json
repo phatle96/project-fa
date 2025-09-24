@@ -1,0 +1,13 @@
+{
+  "dockerfile_lines": [],
+  "graphs": {
+    "fresh_alert_agent": "./freshalert_agent.py:get_graph"
+  },
+  "auth": {
+    "path": "./security/auth.py:auth",
+    "disable_studio_auth": "true"
+  },
+  "env": "./.env",
+  "python_version": "3.11",
+  "dependencies": [".", "-r requirements.txt"]
+}
