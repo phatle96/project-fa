@@ -59,9 +59,5 @@ async def create_graph():
     graph = workflow.compile()
     return graph
 
-async def get_graph():
-    """Async graph factory for LangGraph Studio compatibility."""
-    return await create_graph()
 
-graph = get_graph()
-
+graph = create_graph

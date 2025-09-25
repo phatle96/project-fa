@@ -5,7 +5,7 @@ import os
 
 from spoonacular_tools import SpoonacularTools
 
-mcp = FastMCP("SpoonacularMCP", port=8010)
+mcp = FastMCP("SpoonacularMCP", port=8020)
 
 tools = SpoonacularTools()
 

@@ -20,7 +20,7 @@ services:
             - -c
             - shared_preload_libraries=vector
         volumes:
-            - langgraph-data:/var/lib/postgresql/data
+            - langgraph-freshalert:/var/lib/postgresql/data
         healthcheck:
             test: pg_isready -U postgres
             start_period: 10s
@@ -51,5 +51,5 @@ services:
             context: .
             dockerfile: Dockerfile
 volumes:
-    langgraph-data:
+    langgraph-freshalert:
         driver: local
