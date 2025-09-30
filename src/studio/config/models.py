@@ -67,11 +67,16 @@ async def get_tools(config: Optional[RunnableConfig] = None) -> List:
     fresh_alert_token = ""
     headers = {}
     if config and "configurable" in config:
-        user_config = config["configurable"].get("langgraph_auth_user", {})
         
-        fresh_alert_token = user_config.get("freshalert-token", "")
+        configurable = config.get("configurable", {})
+    
+        fresh_alert_token = configurable.get("freshalert-token")
         
-        headers = {"authorization": f"Bearer {fresh_alert_token}"}        
+        # user_config = config["configurable"].get("langgraph_auth_user", {})
+        
+        # fresh_alert_token = user_config.get("freshalert-token", "")
+        
+        headers = {"authorization": f"{fresh_alert_token}"}        
 
     client = MultiServerMCPClient(
         {

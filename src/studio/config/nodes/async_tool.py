@@ -1,9 +1,13 @@
 import asyncio
 
-from langchain.agents.tool_node import ToolNode
+from langgraph.prebuilt import ToolNode
+# from langchain.agents.tool_node import ToolNode
 
 from ..states import MainState
 from config.models import get_tools
+
+
+# from ..tracing import langfuse_handler
 
 class AsyncToolNode:
     def __init__(self, handle_tool_errors=None):
@@ -32,7 +36,8 @@ class AsyncToolNode:
         # Execute tools
         tool_node = ToolNode(tools, handle_tool_errors=self.handle_tool_errors)
         result = await tool_node.ainvoke(state)
-        
+        # result = await tool_node.ainvoke(state, config={"callbacks": [ langfuse_handler ]})
+
         # Update tool call status after execution
         for tool_call in current_tool_calls:
             tool_call["status"] = "completed"

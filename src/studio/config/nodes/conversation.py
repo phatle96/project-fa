@@ -6,6 +6,7 @@ from langchain_core.messages import SystemMessage
 from ..states import MainState
 from ..prompts import FRESH_ALERT_AGENT_SYSTEM_PROMPT
 from ..models import get_tools, get_model
+# from ..tracing import langfuse_handler
 
 
 # Define the logic to call the model
@@ -97,9 +98,11 @@ async def call_model(state: MainState, config):
     messages = [SystemMessage(content=system_content)] + filtered_messages
 
     # Invoke model with tools
-    response = await asyncio.to_thread(
-        model.bind_tools(tools).invoke, messages, {"recursion_limit": 125}
-    )
+    response = await model.bind_tools(tools).ainvoke(input=messages, config={"recursion_limit":125})
+    
+    # response = await model.bind_tools(tools).ainvoke(input=messages, config={"recursion_limit":125, "callbacks": [langfuse_handler]})
+
+   
     return {"messages": response}
 
 

@@ -166,7 +166,9 @@ async def summarize_conversation(state: MainState):
     clean_messages = [HumanMessage(content=summary_message)]
 
     # Use model without tools to avoid any tool-related issues
-    response = await asyncio.to_thread(model.invoke, clean_messages)
+    response = await model.ainvoke(input=clean_messages) 
+    # response = await asyncio.to_thread(model.invoke(config={"callbacks": [langfuse_handler]}), clean_messages)
+
 
     # Delete all but the 2 most recent messages
     # delete_messages = [RemoveMessage(id=m.id) for m in state["messages"][:-2]]

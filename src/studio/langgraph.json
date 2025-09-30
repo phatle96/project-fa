@@ -3,9 +3,10 @@
   "graphs": {
     "fresh_alert_agent": "./freshalert_agent.py:graph"
   },
-  "auth": {
-    "path": "./security/auth.py:auth",
-    "disable_studio_auth": "true"
+  "http": {
+    "configurable_headers": {
+      "include": ["freshalert-token"]
+    }
   },
   "env": "./.env",
   "python_version": "3.11",

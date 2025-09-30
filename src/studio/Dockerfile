@@ -1,5 +1,11 @@
 FROM langchain/langgraph-api:3.11
 
+
+ADD requirements.txt /deps/outer-studio/src/requirements.txt
+RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --prerelease=allow --no-cache-dir -c /api/constraints.txt -r /deps/outer-studio/src/requirements.txt
+
+# RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --prerelease=allow --no-cache-dir -c /api/constraints.txt -r requirements.txt
+
 # -- Installing local requirements --
 ADD requirements.txt /deps/outer-studio/src/requirements.txt
 RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --prerelease=allow --no-cache-dir -c /api/constraints.txt -r /deps/outer-studio/src/requirements.txt
@@ -23,15 +29,15 @@ RUN set -ex && \
 # -- Installing all local dependencies --
 RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --prerelease=allow --no-cache-dir -c /api/constraints.txt -e /deps/*
 # -- End of local dependencies install --
-
-ENV LANGGRAPH_AUTH='{"path": "/deps/outer-studio/src/security/auth.py:auth", "disable_studio_auth": "true"}'
+ENV LANGGRAPH_HTTP='{"configurable_headers": {"include": ["freshalert-token"]}}'
 ENV LANGSERVE_GRAPHS='{"fresh_alert_agent": "/deps/outer-studio/src/freshalert_agent.py:graph"}'
+
+
 
 # -- Ensure user deps didn't inadvertently overwrite langgraph-api
 RUN mkdir -p /api/langgraph_api /api/langgraph_runtime /api/langgraph_license && touch /api/langgraph_api/__init__.py /api/langgraph_runtime/__init__.py /api/langgraph_license/__init__.py
 RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --prerelease=allow --no-cache-dir --no-deps -e /api
 # -- End of ensuring user deps didn't inadvertently overwrite langgraph-api --
-
 # -- Removing build deps from the final image ~<:===~~~ --
 RUN pip uninstall -y pip setuptools wheel
 RUN rm -rf /usr/local/lib/python*/site-packages/pip* /usr/local/lib/python*/site-packages/setuptools* /usr/local/lib/python*/site-packages/wheel* && find /usr/local/bin -name "pip*" -delete || true
