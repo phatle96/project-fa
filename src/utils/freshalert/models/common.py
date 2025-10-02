@@ -7,6 +7,21 @@ from typing import Optional, List, Any, Dict
 from pydantic import BaseModel, Field
 
 
+class IngredientDto(BaseModel):
+    """Ingredient information"""
+    id: Optional[str] = Field(None, description="Unique identifier")
+    off_id: Optional[str] = Field(None, alias="offId", description="Open Food Facts ID")
+    name: Optional[str] = Field(None, description="Ingredient name")
+    description: Optional[str] = Field(None, description="Ingredient description")
+    origin_country: Optional[str] = Field(None, alias="originCountry", description="Country of origin")
+    is_allergen: Optional[bool] = Field(None, alias="isAllergen", description="Whether ingredient is an allergen")
+    date_created: Optional[datetime] = Field(None, alias="dateCreated", description="Creation date")
+    
+    model_config = {
+        "populate_by_name": True
+    }
+
+
 class ResponseModel(BaseModel):
     """Standard API response wrapper"""
     res: int = Field(..., description="Response status (1 for success, 0 for error)")
@@ -15,8 +30,9 @@ class ResponseModel(BaseModel):
     access_token: Optional[str] = Field(None, alias="accessToken", description="Access token if provided")
     data: Optional[Any] = Field(None, description="Response data")
     
-    class Config:
-        allow_population_by_field_name = True
+    model_config = {
+        "populate_by_name": True
+    }
 
 
 class DateResponseModel(BaseModel):
@@ -28,8 +44,9 @@ class DateResponseModel(BaseModel):
     date_expired: Optional[datetime] = Field(None, alias="dateExpired", description="Expiration date")
     quantity: Optional[float] = Field(None, description="Product quantity")
     
-    class Config:
-        allow_population_by_field_name = True
+    model_config = {
+        "populate_by_name": True
+    }
 
 
 class ProductResponseDto(BaseModel):
@@ -41,6 +58,7 @@ class ProductResponseDto(BaseModel):
     brand: Optional[str] = Field(None, description="Product brand")
     manufacturer: Optional[str] = Field(None, description="Product manufacturer")
     description: Optional[str] = Field(None, description="Product description")
+    ingredients: Optional[List[IngredientDto]] = Field(None, description="Product ingredients")
     image_url: Optional[List[str]] = Field(None, alias="imageUrl", description="Product images")
     usage_instruction: Optional[str] = Field(None, alias="usageInstruction", description="Usage instructions")
     storage_instruction: Optional[str] = Field(None, alias="storageInstruction", description="Storage instructions")
@@ -55,8 +73,9 @@ class ProductResponseDto(BaseModel):
         description="Date tracking entries for this product"
     )
     
-    class Config:
-        allow_population_by_field_name = True
+    model_config = {
+        "populate_by_name": True
+    }
 
 
 class ProductListResponse(BaseModel):
@@ -66,5 +85,42 @@ class ProductListResponse(BaseModel):
     error_code: Optional[str] = Field(None, alias="errorCode", description="Error code if any")
     data: List[ProductResponseDto] = Field(default_factory=list, description="List of products")
     
-    class Config:
-        allow_population_by_field_name = True
+    model_config = {
+        "populate_by_name": True
+    }
+    
+
+class ProductSearchServiceResponse(BaseModel):
+    """Response for product list from food service"""
+    code: Optional[str] = Field(None, description="The product code")
+    product_name: Optional[str] = Field(None, description="The product name")
+    brands: Optional[str] = Field(None, description="The product brand")
+    image_url: Optional[str] = Field(None, description="The product image URL")
+    
+    
+
+
+class PaginatedProductData(BaseModel):
+    """Paginated product data structure"""
+    count: Optional[int] = Field(None, description="Total count of products")
+    page: Optional[int] = Field(None, description="Current page number")
+    page_count: Optional[int] = Field(None, description="Total count of products on page")
+    page_size: Optional[int] = Field(None, description="Current page size")
+    products: List[ProductSearchServiceResponse] = Field(default_factory=list, description="List of products")
+    skip: Optional[int] = Field(None, description="Number of items skipped")
+    
+    model_config = {
+        "populate_by_name": True
+    }
+
+
+class PaginatedProductResponse(BaseModel):
+    """Response for paginated product endpoints (like search)"""
+    res: int = Field(..., description="Response status")
+    error: Optional[str] = Field(None, description="Error message if any")
+    error_code: Optional[str] = Field(None, alias="errorCode", description="Error code if any")
+    data: PaginatedProductData = Field(..., description="Paginated product data")
+    
+    model_config = {
+        "populate_by_name": True
+    }

@@ -43,7 +43,19 @@ from .models import (
     DateResponseModel,
     ProductResponseDto,
     ProductListResponse,
-    ProductFilterParams
+    PaginatedProductData,
+    PaginatedProductResponse,
+    ProductSearchServiceResponse,
+    IngredientDto,
+    ProductFilterParams,
+    CreateProductCodeRequest,
+    CreateProductDateRequest,
+    UpdateProductDateRequest,
+    ProductCodeResponse,
+    CreateProductCodeResponse,
+    CreateProductDateResponse,
+    UpdateProductDateResponse,
+    DeleteProductResponse
 )
 from .api import ProductsAPI
 
@@ -79,7 +91,19 @@ __all__ = [
     "DateResponseModel",
     "ProductResponseDto",
     "ProductListResponse",
+    "PaginatedProductData",
+    "PaginatedProductResponse",
+    "ProductSearchServiceResponse",
+    "IngredientDto",
     "ProductFilterParams",
+    "CreateProductCodeRequest",
+    "CreateProductDateRequest",
+    "UpdateProductDateRequest",
+    "ProductCodeResponse",
+    "CreateProductCodeResponse",
+    "CreateProductDateResponse",
+    "UpdateProductDateResponse",
+    "DeleteProductResponse",
     
     # API modules (for advanced usage)
     "ProductsAPI",

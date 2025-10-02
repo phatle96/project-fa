@@ -1,11 +1,26 @@
 from typing import List, Optional, Dict, Any, Union
 from mcp.server.fastmcp import FastMCP
 from spoonacular_enum import CUISINE_LIST, MEAL_TYPE_LIST, DIET_LIST
-import os
+import os, sys
 
 from spoonacular_tools import SpoonacularTools
 
-mcp = FastMCP("SpoonacularMCP", port=8020)
+PORT = 8020
+
+if len(sys.argv) > 1:
+    PORT = sys.argv[1]
+    
+ENV_PORT = os.getenv("SPOONACULAR_MCP_PORT", "")
+
+if ENV_PORT:
+    PORT = ENV_PORT
+    
+
+
+mcp = FastMCP("FreshAlertMCP", port=PORT)
+
+
+mcp = FastMCP("SpoonacularMCP", port=PORT)
 
 tools = SpoonacularTools()
 

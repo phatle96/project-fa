@@ -5,55 +5,129 @@
       "get": {
         "operationId": "VersionController_getVersion",
         "parameters": [],
-        "responses": { "200": { "description": "Get current version" } },
-        "tags": ["Version"]
+        "responses": {
+          "200": {
+            "description": "Get current version"
+          }
+        },
+        "tags": [
+          "Version"
+        ]
       }
     },
     "/user/me": {
       "get": {
         "operationId": "UserController_getProfile",
         "parameters": [],
-        "responses": { "200": { "description": "" } },
-        "security": [{ "manual-auth": [] }],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get current user",
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       }
     },
     "/user/users": {
       "get": {
         "operationId": "UserController_findAll",
         "parameters": [
-          { "name": "p", "required": false, "in": "query", "schema": { "type": "number" } },
-          { "name": "l", "required": false, "in": "query", "schema": { "type": "number" } }
+          {
+            "name": "p",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "l",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
         ],
-        "responses": { "200": { "description": "Return users." } },
-        "security": [{ "manual-auth": [] }],
+        "responses": {
+          "200": {
+            "description": "Return users."
+          }
+        },
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get users",
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       }
     },
     "/user/{id}": {
       "get": {
         "operationId": "UserController_findById",
         "parameters": [
-          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
-        "responses": { "200": { "description": "Return user." } },
-        "security": [{ "manual-auth": [] }],
+        "responses": {
+          "200": {
+            "description": "Return user."
+          }
+        },
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get user by id.",
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       }
     },
     "/user/name/{name}": {
       "get": {
         "operationId": "UserController_userByName",
         "parameters": [
-          { "name": "name", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "name",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
-        "responses": { "200": { "description": "Return user." } },
-        "security": [{ "manual-auth": [] }],
+        "responses": {
+          "200": {
+            "description": "Return user."
+          }
+        },
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get user by name.",
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       }
     },
     "/product-code/hello": {
@@ -61,20 +135,44 @@
         "operationId": "BarcodeController_hello",
         "parameters": [],
         "responses": {
-          "200": { "description": "say hello." },
-          "429": { "description": "Too many requests. Please try again later." }
+          "200": {
+            "description": "say hello."
+          },
+          "429": {
+            "description": "Too many requests. Please try again later."
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "hello",
-        "tags": ["Product-code"]
+        "tags": [
+          "Product-code"
+        ]
       }
     },
     "/product-code/{code}": {
       "get": {
         "operationId": "BarcodeController_findBarcodeByOff",
         "parameters": [
-          { "name": "code", "required": true, "in": "path", "schema": { "type": "string" } },
-          { "name": "codeType", "required": false, "in": "query", "schema": { "type": "string" } }
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "codeType",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -83,10 +181,14 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
-                        "data": { "$ref": "#/components/schemas/BarcodeResponseModel" }
+                        "data": {
+                          "$ref": "#/components/schemas/BarcodeResponseModel"
+                        }
                       }
                     }
                   ]
@@ -94,18 +196,37 @@
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "429": { "description": "Too many requests. Please try again later." },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "429": {
+            "description": "Too many requests. Please try again later."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get product by Barcode",
-        "tags": ["Product-code"]
+        "tags": [
+          "Product-code"
+        ]
       },
       "delete": {
         "operationId": "BarcodeController_deleteProductByBarcode",
         "parameters": [
-          { "name": "code", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -114,10 +235,14 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
-                        "data": { "$ref": "#/components/schemas/BarcodeResponseModel" }
+                        "data": {
+                          "$ref": "#/components/schemas/BarcodeResponseModel"
+                        }
                       }
                     }
                   ]
@@ -125,18 +250,33 @@
               }
             }
           },
-          "404": { "description": "Product not found" }
+          "404": {
+            "description": "Product not found"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Delete product by Barcode",
-        "tags": ["Product-code"]
+        "tags": [
+          "Product-code"
+        ]
       }
     },
     "/product-code/search/{query}": {
       "get": {
         "operationId": "BarcodeController_search",
         "parameters": [
-          { "name": "query", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "query",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -145,10 +285,14 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
-                        "data": { "$ref": "#/components/schemas/OpenFoodSearchResultDto" }
+                        "data": {
+                          "$ref": "#/components/schemas/OpenFoodSearchResultDto"
+                        }
                       }
                     }
                   ]
@@ -156,13 +300,25 @@
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "429": { "description": "Too many requests. Please try again later." },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "429": {
+            "description": "Too many requests. Please try again later."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Search Open Food Facts products",
-        "tags": ["Product-code"]
+        "tags": [
+          "Product-code"
+        ]
       }
     },
     "/product-code": {
@@ -173,7 +329,9 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreateBarcodeInputDto" }
+              "schema": {
+                "$ref": "#/components/schemas/CreateBarcodeInputDto"
+              }
             }
           }
         },
@@ -184,10 +342,14 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
-                        "data": { "$ref": "#/components/schemas/BarcodeResponseModel" }
+                        "data": {
+                          "$ref": "#/components/schemas/BarcodeResponseModel"
+                        }
                       }
                     }
                   ]
@@ -195,11 +357,19 @@
               }
             }
           },
-          "404": { "description": "Product is not created" }
+          "404": {
+            "description": "Product is not created"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Create product",
-        "tags": ["Product-code"]
+        "tags": [
+          "Product-code"
+        ]
       }
     },
     "/key-phrase": {
@@ -209,7 +379,11 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": { "schema": { "$ref": "#/components/schemas/KeyPhraseInputDto" } }
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KeyPhraseInputDto"
+              }
+            }
           }
         },
         "responses": {
@@ -219,18 +393,34 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
-                    { "properties": { "data": { "$ref": "#/components/schemas/KeyPhraseDto" } } }
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/KeyPhraseDto"
+                        }
+                      }
+                    }
                   ]
                 }
               }
             }
           },
-          "500": { "description": "Internal server error" }
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Create Key-phrase",
-        "tags": ["KeyPhrase"]
+        "tags": [
+          "KeyPhrase"
+        ]
       },
       "get": {
         "operationId": "KeyPhraseController_findAll",
@@ -242,12 +432,16 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
                         "data": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/KeyPhraseDto" }
+                          "items": {
+                            "$ref": "#/components/schemas/KeyPhraseDto"
+                          }
                         }
                       }
                     }
@@ -256,12 +450,22 @@
               }
             }
           },
-          "404": { "description": "Key-phrase not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Key-phrase not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get all Key-phrase",
-        "tags": ["KeyPhrase"]
+        "tags": [
+          "KeyPhrase"
+        ]
       },
       "delete": {
         "operationId": "KeyPhraseController_remove",
@@ -270,22 +474,43 @@
           "200": {
             "description": "Delete Hard all Key-phrase success",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/ResponseModel" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
             }
           },
-          "404": { "description": "Key-phrase not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Key-phrase not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Delete Hard all Key-phrase, just use this api if you deep-know database",
-        "tags": ["KeyPhrase"]
+        "tags": [
+          "KeyPhrase"
+        ]
       }
     },
     "/key-phrase/{id}": {
       "get": {
         "operationId": "KeyPhraseController_findOne",
         "parameters": [
-          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -294,12 +519,16 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
                         "data": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/KeyPhraseDto" }
+                          "items": {
+                            "$ref": "#/components/schemas/KeyPhraseDto"
+                          }
                         }
                       }
                     }
@@ -308,38 +537,76 @@
               }
             }
           },
-          "404": { "description": "Key-phrase not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Key-phrase not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get Key-phrase by Id",
-        "tags": ["KeyPhrase"]
+        "tags": [
+          "KeyPhrase"
+        ]
       },
       "delete": {
         "operationId": "KeyPhraseController_removeSoft",
         "parameters": [
-          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
             "description": "Delete-soft Key-phrase success",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/ResponseModel" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
             }
           },
-          "404": { "description": "Key-phrase is not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Key-phrase is not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Delete-soft Key-phrase by ID",
-        "tags": ["KeyPhrase"]
+        "tags": [
+          "KeyPhrase"
+        ]
       }
     },
     "/images/upload": {
       "post": {
         "operationId": "ImageController_uploadImage",
         "parameters": [
-          { "name": "code", "required": false, "in": "query", "schema": { "type": "string" } }
+          {
+            "name": "code",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
@@ -348,8 +615,16 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "pictureUrl": { "type": "string", "format": "url", "nullable": true },
-                  "file": { "type": "string", "format": "binary", "nullable": true }
+                  "pictureUrl": {
+                    "type": "string",
+                    "format": "url",
+                    "nullable": true
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "nullable": true
+                  }
                 }
               }
             }
@@ -362,10 +637,14 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
-                        "data": { "$ref": "#/components/schemas/ImageUploadsResponse" }
+                        "data": {
+                          "$ref": "#/components/schemas/ImageUploadsResponse"
+                        }
                       }
                     }
                   ]
@@ -373,12 +652,22 @@
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Save image via url or file",
-        "tags": ["Images"]
+        "tags": [
+          "Images"
+        ]
       }
     },
     "/date": {
@@ -389,7 +678,9 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreateDateProductUserDto" }
+              "schema": {
+                "$ref": "#/components/schemas/CreateDateProductUserDto"
+              }
             }
           }
         },
@@ -400,22 +691,40 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
                     {
-                      "properties": { "data": { "$ref": "#/components/schemas/DateResponseModel" } }
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/DateResponseModel"
+                        }
+                      }
                     }
                   ]
                 }
               }
             }
           },
-          "201": { "description": "Created" },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "201": {
+            "description": "Created"
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Create date",
-        "tags": ["Date"]
+        "tags": [
+          "Date"
+        ]
       },
       "get": {
         "operationId": "DateController_findAll",
@@ -427,12 +736,16 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
                         "data": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/DateResponseModel" }
+                          "items": {
+                            "$ref": "#/components/schemas/DateResponseModel"
+                          }
                         }
                       }
                     }
@@ -441,12 +754,22 @@
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get all date",
-        "tags": ["Date"]
+        "tags": [
+          "Date"
+        ]
       }
     },
     "/date/user": {
@@ -460,12 +783,16 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
                         "data": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/DateResponseModel" }
+                          "items": {
+                            "$ref": "#/components/schemas/DateResponseModel"
+                          }
                         }
                       }
                     }
@@ -474,19 +801,36 @@
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get all date by User",
-        "tags": ["Date"]
+        "tags": [
+          "Date"
+        ]
       }
     },
     "/date/{id}": {
       "get": {
         "operationId": "DateController_findOne",
         "parameters": [
-          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -495,32 +839,57 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
                     {
-                      "properties": { "data": { "$ref": "#/components/schemas/DateResponseModel" } }
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/DateResponseModel"
+                        }
+                      }
                     }
                   ]
                 }
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get date by id",
-        "tags": ["Date"]
+        "tags": [
+          "Date"
+        ]
       },
       "put": {
         "operationId": "DateController_update",
         "parameters": [
-          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/UpdateDateProductUserDto" }
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDateProductUserDto"
+              }
             }
           }
         },
@@ -531,21 +900,37 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
                     {
-                      "properties": { "data": { "$ref": "#/components/schemas/DateResponseModel" } }
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/DateResponseModel"
+                        }
+                      }
                     }
                   ]
                 }
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Update date by id",
-        "tags": ["Date"]
+        "tags": [
+          "Date"
+        ]
       }
     },
     "/date/extract": {
@@ -559,9 +944,15 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "textOCR": { "type": "string" },
-                  "zone": { "type": "string" },
-                  "country_code": { "type": "string" }
+                  "textOCR": {
+                    "type": "string"
+                  },
+                  "zone": {
+                    "type": "string"
+                  },
+                  "country_code": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -574,10 +965,14 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
-                        "data": { "$ref": "#/components/schemas/DateExtractResponseDto" }
+                        "data": {
+                          "$ref": "#/components/schemas/DateExtractResponseDto"
+                        }
                       }
                     }
                   ]
@@ -586,22 +981,42 @@
             }
           }
         },
-        "security": [{ "manual-auth": [] }],
-        "summary": "Save image via url or file",
-        "tags": ["Date"]
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
+        "summary": "Extract date via TextOCR",
+        "tags": [
+          "Date"
+        ]
       }
     },
     "/date/calculate-quantity/{dateId}": {
       "put": {
         "operationId": "DateController_calculateQuantity",
         "parameters": [
-          { "name": "dateId", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "dateId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "type": "object", "properties": { "calculus": { "type": "string" } } }
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "calculus": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -612,21 +1027,37 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
                     {
-                      "properties": { "data": { "$ref": "#/components/schemas/DateResponseModel" } }
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/DateResponseModel"
+                        }
+                      }
                     }
                   ]
                 }
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Calculate quantity",
-        "tags": ["Date"]
+        "tags": [
+          "Date"
+        ]
       }
     },
     "/product": {
@@ -640,12 +1071,16 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
                         "data": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/ProductResponseDto" }
+                          "items": {
+                            "$ref": "#/components/schemas/ProductResponseDto"
+                          }
                         }
                       }
                     }
@@ -654,23 +1089,43 @@
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get all Product",
-        "tags": ["Product"]
+        "tags": [
+          "Product"
+        ]
       },
       "delete": {
         "operationId": "ProductController_removeAll",
         "parameters": [],
         "responses": {
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Hard-remove all product",
-        "tags": ["Product"]
+        "tags": [
+          "Product"
+        ]
       }
     },
     "/product/user": {
@@ -684,12 +1139,16 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
                         "data": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/ProductResponseDto" }
+                          "items": {
+                            "$ref": "#/components/schemas/ProductResponseDto"
+                          }
                         }
                       }
                     }
@@ -698,19 +1157,36 @@
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get Product list by user",
-        "tags": ["Product"]
+        "tags": [
+          "Product"
+        ]
       }
     },
     "/product/user/expired": {
       "get": {
         "operationId": "ProductController_findAllByUserLookbackDays",
         "parameters": [
-          { "name": "days", "required": false, "in": "query", "schema": { "type": "number" } }
+          {
+            "name": "days",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -719,12 +1195,16 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
                     {
                       "properties": {
                         "data": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/ProductResponseDto" }
+                          "items": {
+                            "$ref": "#/components/schemas/ProductResponseDto"
+                          }
                         }
                       }
                     }
@@ -733,42 +1213,86 @@
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get Product list by user with lookback day",
-        "tags": ["Product"]
+        "tags": [
+          "Product"
+        ]
       }
     },
     "/product/{id}": {
       "delete": {
         "operationId": "ProductController_remove",
         "parameters": [
-          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Hard-remove product by id",
-        "tags": ["Product"]
+        "tags": [
+          "Product"
+        ]
       }
     },
     "/product/soft-delete/{id}": {
       "delete": {
         "operationId": "ProductController_softDeleteById",
         "parameters": [
-          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
-          "404": { "description": "Product not found" },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Soft-delete by ID",
-        "tags": ["Product"]
+        "tags": [
+          "Product"
+        ]
       }
     },
     "/firebase-messages/private/user": {
@@ -779,38 +1303,82 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/FirebaseUserInputModel" }
+              "schema": {
+                "$ref": "#/components/schemas/FirebaseUserInputModel"
+              }
             }
           }
         },
         "responses": {
-          "200": { "description": "Migrate current user success" },
-          "404": { "description": "User is not migrated" },
-          "500": { "description": "Internal server error" }
+          "200": {
+            "description": "Migrate current user success"
+          },
+          "404": {
+            "description": "User is not migrated"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Migrate current user",
-        "tags": ["Firebase"]
+        "tags": [
+          "Firebase"
+        ]
       }
     },
     "/firebase-messages/private/CloudMessaging/{code}": {
       "post": {
         "operationId": "FirebaseMessageController_sendMessage",
         "parameters": [
-          { "name": "code", "required": false, "in": "query", "schema": { "type": "number" } },
-          { "name": "days", "required": false, "in": "query", "schema": { "type": "number" } }
+          {
+            "name": "code",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "days",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
         ],
         "responses": {
           "201": {
             "description": "Send message success!",
-            "content": { "application/json": { "schema": { "type": "string" } } }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
-          "404": { "description": "Send message server not found error" },
-          "500": { "description": "Send message server error" }
+          "404": {
+            "description": "Send message server not found error"
+          },
+          "500": {
+            "description": "Send message server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Send message user with code = 1: toOne, code = 2: ToMany, code = 3: ToAll (default), This api just use for BACK-END, for get access token of api Firebase",
-        "tags": ["Firebase"]
+        "tags": [
+          "Firebase"
+        ]
       }
     },
     "/serpapi/reserve-image": {
@@ -823,7 +1391,13 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "properties": { "file": { "type": "string", "format": "binary", "nullable": true } }
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "nullable": true
+                  }
+                }
               }
             }
           }
@@ -835,27 +1409,54 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
-                    { "properties": { "data": { "$ref": "#/components/schemas/ReverseImageDto" } } }
+                    {
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/ReverseImageDto"
+                        }
+                      }
+                    }
                   ]
                 }
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "429": { "description": "Too many requests. Please try again later." },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "429": {
+            "description": "Too many requests. Please try again later."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Search related images",
-        "tags": ["SerpApi-Reserve-Image"]
+        "tags": [
+          "SerpApi-Reserve-Image"
+        ]
       }
     },
     "/serpapi/product-info": {
       "get": {
         "operationId": "SerpApiController_getInformationProduct",
         "parameters": [
-          { "name": "title", "required": false, "in": "query", "schema": { "type": "string" } }
+          {
+            "name": "title",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -864,22 +1465,229 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref": "#/components/schemas/ResponseModel" },
                     {
-                      "properties": { "data": { "$ref": "#/components/schemas/SerapiResponseDto" } }
+                      "$ref": "#/components/schemas/ResponseModel"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/SerapiResponseDto"
+                        }
+                      }
                     }
                   ]
                 }
               }
             }
           },
-          "404": { "description": "Product not found" },
-          "429": { "description": "Too many requests. Please try again later." },
-          "500": { "description": "Internal server error" }
+          "404": {
+            "description": "Product not found"
+          },
+          "429": {
+            "description": "Too many requests. Please try again later."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         },
-        "security": [{ "manual-auth": [] }],
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
         "summary": "Get Open Food Fact product information",
-        "tags": ["SerpApi-Reserve-Image"]
+        "tags": [
+          "SerpApi-Reserve-Image"
+        ]
+      }
+    },
+    "/food-data-central/v1/foods": {
+      "get": {
+        "operationId": "FoodDataCentralController_findByListFdcIds",
+        "parameters": [
+          {
+            "name": "fdcIds",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "description": "Optional. 'abridged' for an abridged set of elements, 'full' for all elements (default).",
+            "schema": {
+              "enum": [
+                "abridged",
+                "full"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "nutrients",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too many requests, just call this api 100 times per minute"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get information from the food data by List FdcId",
+        "tags": [
+          "Food Data Central API"
+        ]
+      }
+    },
+    "/food-data-central/v1/foods/{fdcId}": {
+      "get": {
+        "operationId": "FoodDataCentralController_findById",
+        "parameters": [
+          {
+            "name": "fdcId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too many requests, just call this api 100 times per minute"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get information from the food data by FdcId",
+        "tags": [
+          "Food Data Central API"
+        ]
+      }
+    },
+    "/food-data-central/v1/foods/search": {
+      "get": {
+        "operationId": "FoodDataCentralController_search",
+        "parameters": [
+          {
+            "name": "brandOwner",
+            "required": false,
+            "in": "query",
+            "description": "Optional. Filter results based on the brand owner of the food. Only applies to Branded Foods",
+            "schema": {
+              "nullable": true,
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "required": false,
+            "in": "query",
+            "description": "Optional. The sort direction for the results. Only applicable if sortBy is specified.",
+            "schema": {
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Optional. Specify one of the possible values to sort by that field. Note, dataType.keyword will be dataType and lowercaseDescription.keyword will be description in future releases.",
+            "schema": {
+              "enum": [
+                "dataType.keyword",
+                "lowercaseDescription.keyword",
+                "fdcId",
+                "publishedDate"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "required": false,
+            "in": "query",
+            "description": "Optional. Page number to retrieve. The offset into the overall result set is expressed as (pageNumber * pageSize)",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Optional. Maximum number of results to return for the current page. Default is 25.",
+            "schema": {
+              "example": 25,
+              "type": "number"
+            }
+          },
+          {
+            "name": "dataType",
+            "required": false,
+            "in": "query",
+            "style": "form",
+            "explode": false,
+            "description": "Optional. Filter on a specific data type; specify one or more values in an array.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "query",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "429": {
+            "description": "Too many requests, just call this api 100 times per minute"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Search food information in Food Data Central",
+        "tags": [
+          "Food Data Central API"
+        ]
       }
     }
   },
@@ -887,7 +1695,9 @@
     "title": "Your API Title",
     "description": "Your API Description",
     "version": "1.2.0-beta",
-    "contact": {}
+    "contact": {
+
+    }
   },
   "tags": [],
   "servers": [],
@@ -904,24 +1714,63 @@
       "ResponseModel": {
         "type": "object",
         "properties": {
-          "res": { "type": "number", "example": 1 },
-          "error": { "type": "string", "nullable": true },
-          "errorCode": { "type": "string", "nullable": true },
-          "accessToken": { "type": "string", "nullable": true },
-          "data": { "type": "object", "nullable": true }
+          "res": {
+            "type": "number",
+            "example": 1
+          },
+          "error": {
+            "type": "string",
+            "nullable": true
+          },
+          "errorCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "accessToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "nullable": true
+          }
         },
-        "required": ["res"]
+        "required": [
+          "res"
+        ]
       },
       "IngredientDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "nullable": true },
-          "offId": { "type": "string", "nullable": true },
-          "name": { "type": "string", "nullable": true },
-          "description": { "type": "string", "nullable": true },
-          "originCountry": { "type": "string", "nullable": true },
-          "isAllergen": { "type": "boolean", "nullable": true },
-          "dateCreated": { "format": "date-time", "type": "string", "nullable": true }
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "offId": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "originCountry": {
+            "type": "string",
+            "nullable": true
+          },
+          "isAllergen": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "dateCreated": {
+            "format": "date-time",
+            "type": "string",
+            "nullable": true
+          }
         },
         "required": [
           "id",
@@ -936,40 +1785,107 @@
       "OpenFoodProductSummaryDto": {
         "type": "object",
         "properties": {
-          "code": { "type": "string", "nullable": true },
-          "product_name": { "type": "string", "nullable": true },
-          "brands": { "type": "string", "nullable": true },
-          "image_url": { "type": "string", "nullable": true }
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "product_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "brands": {
+            "type": "string",
+            "nullable": true
+          },
+          "image_url": {
+            "type": "string",
+            "nullable": true
+          }
         }
       },
       "BarcodeResponseModel": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "codeNumber": { "type": "string", "nullable": true },
-          "codeType": { "type": "string", "nullable": true },
-          "productName": { "type": "string", "nullable": true },
-          "brand": { "type": "string", "nullable": true },
-          "manufacturer": { "type": "string", "nullable": true },
-          "description": { "type": "string", "nullable": true },
+          "id": {
+            "type": "string"
+          },
+          "codeNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "codeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "productName": {
+            "type": "string",
+            "nullable": true
+          },
+          "brand": {
+            "type": "string",
+            "nullable": true
+          },
+          "manufacturer": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
           "ingredients": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/IngredientDto" }
+            "items": {
+              "$ref": "#/components/schemas/IngredientDto"
+            }
           },
-          "nutritionFact": { "type": "string", "nullable": true },
-          "usageInstruction": { "type": "string", "nullable": true },
-          "storageInstruction": { "type": "string", "nullable": true },
-          "countryOfOrigin": { "type": "string", "nullable": true },
-          "category": { "type": "string", "nullable": true },
-          "imageUrl": { "nullable": true, "type": "array", "items": { "type": "string" } },
-          "count": { "type": "number" },
-          "page": { "type": "number" },
-          "page_count": { "type": "number" },
-          "page_size": { "type": "number" },
-          "skip": { "type": "number" },
+          "nutritionFact": {
+            "type": "string",
+            "nullable": true
+          },
+          "usageInstruction": {
+            "type": "string",
+            "nullable": true
+          },
+          "storageInstruction": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryOfOrigin": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "count": {
+            "type": "number"
+          },
+          "page": {
+            "type": "number"
+          },
+          "page_count": {
+            "type": "number"
+          },
+          "page_size": {
+            "type": "number"
+          },
+          "skip": {
+            "type": "number"
+          },
           "products": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/OpenFoodProductSummaryDto" }
+            "items": {
+              "$ref": "#/components/schemas/OpenFoodProductSummaryDto"
+            }
           }
         },
         "required": [
@@ -998,101 +1914,256 @@
       "OpenFoodSearchResultDto": {
         "type": "object",
         "properties": {
-          "count": { "type": "number", "nullable": true },
-          "page": { "type": "number", "nullable": true },
-          "page_count": { "type": "number", "nullable": true },
-          "page_size": { "type": "number", "nullable": true },
-          "skip": { "type": "number", "nullable": true },
+          "count": {
+            "type": "number",
+            "nullable": true
+          },
+          "page": {
+            "type": "number",
+            "nullable": true
+          },
+          "page_count": {
+            "type": "number",
+            "nullable": true
+          },
+          "page_size": {
+            "type": "number",
+            "nullable": true
+          },
+          "skip": {
+            "type": "number",
+            "nullable": true
+          },
           "products": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/OpenFoodProductSummaryDto" }
+            "items": {
+              "$ref": "#/components/schemas/OpenFoodProductSummaryDto"
+            }
           }
         },
-        "required": ["products"]
+        "required": [
+          "products"
+        ]
       },
       "CreateBarcodeInputDto": {
         "type": "object",
         "properties": {
-          "codeNumber": { "type": "string", "description": "Code number of the product" },
-          "codeType": { "type": "string", "description": "Code type (optional)" },
-          "productName": { "type": "string", "description": "Product name (optional)" },
-          "brand": { "type": "string" },
-          "manufacturer": { "type": "string" },
-          "description": { "type": "string" },
+          "codeNumber": {
+            "type": "string",
+            "description": "Code number of the product"
+          },
+          "codeType": {
+            "type": "string",
+            "description": "Code type (optional)"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Product name (optional)"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "manufacturer": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
           "ingredients": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/IngredientDto" }
+            "items": {
+              "$ref": "#/components/schemas/IngredientDto"
+            }
           },
-          "nutritionFact": { "type": "object" },
-          "usageInstruction": { "type": "string" },
-          "storageInstruction": { "type": "string" },
-          "countryOfOrigin": { "type": "string" },
-          "category": { "type": "string" },
-          "labelKey": { "type": "string" },
-          "phrase": { "type": "string" },
-          "imageUrl": { "type": "array", "items": { "type": "string" } }
+          "nutritionFact": {
+            "type": "object"
+          },
+          "usageInstruction": {
+            "type": "string"
+          },
+          "storageInstruction": {
+            "type": "string"
+          },
+          "countryOfOrigin": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "labelKey": {
+            "type": "string"
+          },
+          "phrase": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         },
-        "required": ["codeNumber"]
+        "required": [
+          "codeNumber"
+        ]
       },
       "KeyPhraseDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "nullable": false },
-          "keyLabel": { "type": "string" },
-          "phrase": { "type": "string", "nullable": true },
-          "countryCode": { "type": "string" }
+          "id": {
+            "type": "string",
+            "nullable": false
+          },
+          "keyLabel": {
+            "type": "string"
+          },
+          "phrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string"
+          }
         },
-        "required": ["id", "keyLabel", "phrase", "countryCode"]
+        "required": [
+          "id",
+          "keyLabel",
+          "phrase",
+          "countryCode"
+        ]
       },
       "KeyPhraseInputDto": {
         "type": "object",
         "properties": {
-          "keyLabel": { "type": "string" },
-          "phrase": { "type": "string" },
-          "countryCode": { "type": "string" }
+          "keyLabel": {
+            "type": "string"
+          },
+          "phrase": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          }
         },
-        "required": ["keyLabel", "phrase", "countryCode"]
+        "required": [
+          "keyLabel",
+          "phrase",
+          "countryCode"
+        ]
       },
       "ImageUploadsResponse": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "nullable": false },
-          "success": { "type": "boolean", "nullable": false },
-          "imagePath": { "type": "string", "nullable": true },
-          "message": { "type": "string", "nullable": true },
-          "productId": { "type": "string", "nullable": true }
+          "id": {
+            "type": "string",
+            "nullable": false
+          },
+          "success": {
+            "type": "boolean",
+            "nullable": false
+          },
+          "imagePath": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "nullable": true
+          }
         },
-        "required": ["id", "success", "imagePath", "message", "productId"]
+        "required": [
+          "id",
+          "success",
+          "imagePath",
+          "message",
+          "productId"
+        ]
       },
       "DateResponseModel": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "productId": { "type": "string", "description": "Product ID (UUID)" },
-          "dateManufactured": { "type": "string", "format": "date-time" },
-          "dateBestBefore": { "type": "string", "format": "date-time" },
-          "dateExpired": { "type": "string", "format": "date-time" },
-          "quantity": { "type": "number", "example": 5 }
+          "id": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string",
+            "description": "Product ID (UUID)"
+          },
+          "dateManufactured": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateBestBefore": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateExpired": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 5
+          }
         },
-        "required": ["id"]
+        "required": [
+          "id"
+        ]
       },
       "CreateDateProductUserDto": {
         "type": "object",
         "properties": {
-          "productId": { "type": "string", "description": "Product ID (UUID)" },
-          "dateManufactured": { "type": "string", "format": "date-time" },
-          "dateBestBefore": { "type": "string", "format": "date-time" },
-          "dateExpired": { "type": "string", "format": "date-time" }
+          "productId": {
+            "type": "string",
+            "description": "Product ID (UUID)"
+          },
+          "dateManufactured": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateBestBefore": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateExpired": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "quantity": {
+            "type": "number",
+            "default": 1
+          }
         },
-        "required": ["productId"]
+        "required": [
+          "productId"
+        ]
       },
       "UpdateDateProductUserDto": {
         "type": "object",
         "properties": {
-          "productId": { "type": "string", "description": "Product ID (UUID)" },
-          "dateManufactured": { "type": "string", "format": "date-time" },
-          "dateBestBefore": { "type": "string", "format": "date-time" },
-          "dateExpired": { "type": "string", "format": "date-time" }
+          "productId": {
+            "type": "string",
+            "description": "Product ID (UUID)"
+          },
+          "dateManufactured": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateBestBefore": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateExpired": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "quantity": {
+            "type": "number"
+          }
         }
       },
       "DateExtractResponseDto": {
@@ -1118,25 +2189,74 @@
       "ProductResponseDto": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "codeNumber": { "type": "string", "nullable": true },
-          "codeType": { "type": "string", "nullable": true },
-          "productName": { "type": "string", "nullable": true },
-          "brand": { "type": "string", "nullable": true },
-          "manufacturer": { "type": "string", "nullable": true },
-          "description": { "type": "string", "nullable": true },
-          "imageUrl": { "nullable": true, "type": "array", "items": { "type": "string" } },
-          "usageInstruction": { "type": "string", "nullable": true },
-          "storageInstruction": { "type": "string", "nullable": true },
-          "countryOfOrigin": { "type": "string", "nullable": true },
-          "category": { "type": "string", "nullable": true },
-          "nutritionFact": { "type": "string", "nullable": true },
-          "labelKey": { "type": "string", "nullable": true },
-          "phrase": { "type": "string", "nullable": true },
+          "id": {
+            "type": "string"
+          },
+          "codeNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "codeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "productName": {
+            "type": "string",
+            "nullable": true
+          },
+          "brand": {
+            "type": "string",
+            "nullable": true
+          },
+          "manufacturer": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "usageInstruction": {
+            "type": "string",
+            "nullable": true
+          },
+          "storageInstruction": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryOfOrigin": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "nutritionFact": {
+            "type": "string",
+            "nullable": true
+          },
+          "labelKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "phrase": {
+            "type": "string",
+            "nullable": true
+          },
           "dateProductUsers": {
             "nullable": true,
             "type": "array",
-            "items": { "$ref": "#/components/schemas/DateResponseModel" }
+            "items": {
+              "$ref": "#/components/schemas/DateResponseModel"
+            }
           }
         },
         "required": [
@@ -1161,52 +2281,151 @@
       "FirebaseUserModel": {
         "type": "object",
         "properties": {
-          "bearerToken": { "type": "string", "nullable": true },
-          "firebaseAppId": { "type": "string", "nullable": true },
-          "fcmToken": { "type": "string", "nullable": true }
+          "bearerToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "firebaseAppId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fcmToken": {
+            "type": "string",
+            "nullable": true
+          }
         },
-        "required": ["bearerToken", "firebaseAppId", "fcmToken"]
+        "required": [
+          "bearerToken",
+          "firebaseAppId",
+          "fcmToken"
+        ]
       },
       "FirebaseUserInputModel": {
         "type": "object",
-        "properties": { "fcmToken": { "type": "string" } },
-        "required": ["fcmToken"]
+        "properties": {
+          "fcmToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "fcmToken"
+        ]
       },
       "PriceDTO": {
         "type": "object",
         "properties": {
-          "value": { "type": "string" },
-          "extracted_value": { "type": "number" },
-          "currency": { "type": "string" }
+          "value": {
+            "type": "string"
+          },
+          "extracted_value": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          }
         },
-        "required": ["value", "extracted_value", "currency"]
+        "required": [
+          "value",
+          "extracted_value",
+          "currency"
+        ]
       },
       "ReverseImageElementResult": {
         "type": "object",
         "properties": {
-          "position": { "type": "number", "nullable": true },
-          "title": { "type": "string", "nullable": true },
-          "thumbnail": { "type": "string", "nullable": true },
-          "thumbnail_width": { "type": "number", "nullable": true },
-          "thumbnail_height": { "type": "number", "nullable": true },
-          "link": { "type": "string", "nullable": true },
-          "image": { "type": "string", "nullable": true },
-          "image_width": { "type": "number", "nullable": true },
-          "image_height": { "type": "number", "nullable": true },
-          "source": { "type": "string", "nullable": true },
-          "date": { "type": "string", "nullable": true },
-          "pageUrl": { "type": "string", "nullable": true },
-          "redirect_link": { "type": "string", "nullable": true },
-          "displayed_link": { "type": "string", "nullable": true },
-          "snippet": { "type": "string", "nullable": true },
-          "snippet_highlighted_words": { "type": "string", "nullable": true },
-          "favicon": { "type": "string", "nullable": true },
-          "source_icon": { "type": "string", "nullable": true },
-          "rating": { "type": "number", "nullable": true },
-          "reviews": { "type": "number", "nullable": true },
-          "price": { "$ref": "#/components/schemas/PriceDTO" },
-          "in_stock": { "type": "boolean", "example": true, "default": true, "nullable": false },
-          "condition": { "type": "string", "nullable": true }
+          "position": {
+            "type": "number",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "thumbnail": {
+            "type": "string",
+            "nullable": true
+          },
+          "thumbnail_width": {
+            "type": "number",
+            "nullable": true
+          },
+          "thumbnail_height": {
+            "type": "number",
+            "nullable": true
+          },
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "image_width": {
+            "type": "number",
+            "nullable": true
+          },
+          "image_height": {
+            "type": "number",
+            "nullable": true
+          },
+          "source": {
+            "type": "string",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "nullable": true
+          },
+          "pageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "redirect_link": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayed_link": {
+            "type": "string",
+            "nullable": true
+          },
+          "snippet": {
+            "type": "string",
+            "nullable": true
+          },
+          "snippet_highlighted_words": {
+            "type": "string",
+            "nullable": true
+          },
+          "favicon": {
+            "type": "string",
+            "nullable": true
+          },
+          "source_icon": {
+            "type": "string",
+            "nullable": true
+          },
+          "rating": {
+            "type": "number",
+            "nullable": true
+          },
+          "reviews": {
+            "type": "number",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/PriceDTO"
+          },
+          "in_stock": {
+            "type": "boolean",
+            "example": true,
+            "default": true,
+            "nullable": false
+          },
+          "condition": {
+            "type": "string",
+            "nullable": true
+          }
         },
         "required": [
           "position",
@@ -1236,42 +2455,91 @@
       "ReverseImageDto": {
         "type": "object",
         "properties": {
-          "search_metadata": { "type": "object" },
-          "search_parameters": { "type": "object" },
-          "image_sizes": { "type": "array", "items": { "type": "object" } },
+          "search_metadata": {
+            "type": "object"
+          },
+          "search_parameters": {
+            "type": "object"
+          },
+          "image_sizes": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
           "image_results": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ReverseImageElementResult" }
+            "items": {
+              "$ref": "#/components/schemas/ReverseImageElementResult"
+            }
           },
           "visual_matches": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ReverseImageElementResult" }
+            "items": {
+              "$ref": "#/components/schemas/ReverseImageElementResult"
+            }
           },
           "related_content": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ReverseImageElementResult" }
+            "items": {
+              "$ref": "#/components/schemas/ReverseImageElementResult"
+            }
           }
         }
       },
       "SerapiResponseDto": {
         "type": "object",
         "properties": {
-          "brand": { "type": "string", "nullable": true },
-          "productName": { "type": "string", "nullable": true },
-          "brand_tags": { "type": "string", "nullable": true },
-          "search_terms": { "type": "string", "nullable": true },
-          "query_nl": { "type": "string", "nullable": true },
-          "count": { "type": "number", "nullable": true },
-          "page": { "type": "number", "nullable": true },
-          "page_count": { "type": "number", "nullable": true },
-          "page_size": { "type": "number", "nullable": true },
-          "skip": { "type": "number", "nullable": true },
+          "brand": {
+            "type": "string",
+            "nullable": true
+          },
+          "productName": {
+            "type": "string",
+            "nullable": true
+          },
+          "brand_tags": {
+            "type": "string",
+            "nullable": true
+          },
+          "search_terms": {
+            "type": "string",
+            "nullable": true
+          },
+          "query_nl": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "number",
+            "nullable": true
+          },
+          "page": {
+            "type": "number",
+            "nullable": true
+          },
+          "page_count": {
+            "type": "number",
+            "nullable": true
+          },
+          "page_size": {
+            "type": "number",
+            "nullable": true
+          },
+          "skip": {
+            "type": "number",
+            "nullable": true
+          },
           "products": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/OpenFoodProductSummaryDto" }
+            "items": {
+              "$ref": "#/components/schemas/OpenFoodProductSummaryDto"
+            }
           }
         },
-        "required": ["products"]
+        "required": [
+          "products"
+        ]
       }
     }
   }
