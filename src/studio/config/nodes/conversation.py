@@ -25,6 +25,9 @@ async def call_model(state: MainState, config):
     if summary:
         system_content += f"Summary of conversation earlier: {summary}\n\n"
 
+    # Get image descriptions from state
+    image_descriptions_map = state.get("image_descriptions", {})
+    
     # Filter and validate message pairs for Anthropic compatibility
     filtered_messages = []
     i = 0
@@ -36,7 +39,20 @@ async def call_model(state: MainState, config):
 
         if hasattr(message, "type"):
             if message.type == "human":
-                filtered_messages.append(message)
+                # Check if this message has image descriptions stored
+                message_id = message.id if hasattr(message, 'id') and message.id else str(id(message))
+                
+                if message_id in image_descriptions_map:
+                    # Create a new message with text description instead of images
+                    from langchain_core.messages import HumanMessage
+                    text_message = HumanMessage(
+                        content=image_descriptions_map[message_id],
+                        id=message.id if hasattr(message, 'id') else None
+                    )
+                    filtered_messages.append(text_message)
+                else:
+                    # Use original message if no image descriptions
+                    filtered_messages.append(message)
                 i += 1
             elif message.type == "ai":
                 # Check if this AI message has tool calls

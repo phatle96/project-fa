@@ -33,14 +33,6 @@ def should_summarise(state: MainState) -> Literal[SUMMARIZE, END]:
     # Otherwise we can just end
     return END
 
-# Define a function to determine if we should proceed based on authentication status
-def check_auth_status(state: MainState) -> Literal["authenticated", "failed"]:
-    """Check if authentication was successful."""
-    auth_data = state.get("superset_auth")
-    if auth_data and auth_data.get("authenticated"):
-        return "authenticated"
-    return "failed"
-
 
 def route_conversation(state: MainState) -> Literal["tools", SUMMARIZE, END]:
     """Route conversation based on tool needs and message count."""
@@ -62,3 +54,18 @@ def route_after_summarize(state: MainState) -> Literal["tools", END]:
     
     # Otherwise, continue the conversation
     return END
+
+
+def has_image(state: MainState) -> bool:
+    """Checks if a HumanMessage contains an image."""
+    
+    message = state["messages"][-1]
+    
+    if isinstance(message.content, list):
+        for content_block in message.content:
+            if isinstance(content_block, dict) and content_block.get("type") in [
+                "image_url",
+                "image",
+            ]:
+                return True
+    return False
