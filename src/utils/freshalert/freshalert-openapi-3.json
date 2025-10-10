@@ -130,29 +130,6 @@
         ]
       }
     },
-    "/product-code/hello": {
-      "get": {
-        "operationId": "BarcodeController_hello",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "say hello."
-          },
-          "429": {
-            "description": "Too many requests. Please try again later."
-          }
-        },
-        "security": [
-          {
-            "manual-auth": []
-          }
-        ],
-        "summary": "hello",
-        "tags": [
-          "Product-code"
-        ]
-      }
-    },
     "/product-code/{code}": {
       "get": {
         "operationId": "BarcodeController_findBarcodeByOff",
@@ -366,7 +343,7 @@
             "manual-auth": []
           }
         ],
-        "summary": "Create product",
+        "summary": "Create product by barcode",
         "tags": [
           "Product-code"
         ]
@@ -1173,6 +1150,27 @@
         "tags": [
           "Product"
         ]
+      },
+      "delete": {
+        "operationId": "ProductController_removeAllByUser",
+        "parameters": [],
+        "responses": {
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
+        "summary": "Hard-remove all product by user",
+        "tags": [
+          "Product"
+        ]
       }
     },
     "/product/user/expired": {
@@ -1231,22 +1229,26 @@
         ]
       }
     },
-    "/product/{id}": {
+    "/product/soft-delete": {
       "delete": {
-        "operationId": "ProductController_remove",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
+        "operationId": "ProductController_softDeleteByArrProductIds",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
             }
           }
-        ],
+        },
         "responses": {
           "404": {
-            "description": "Product not found"
+            "description": "All Product not found"
           },
           "500": {
             "description": "Internal server error"
@@ -1257,7 +1259,7 @@
             "manual-auth": []
           }
         ],
-        "summary": "Hard-remove product by id",
+        "summary": "Soft delete multiple products by IDs",
         "tags": [
           "Product"
         ]
@@ -1290,6 +1292,38 @@
           }
         ],
         "summary": "Soft-delete by ID",
+        "tags": [
+          "Product"
+        ]
+      }
+    },
+    "/product/{id}": {
+      "delete": {
+        "operationId": "ProductController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "manual-auth": []
+          }
+        ],
+        "summary": "Hard-remove product by id",
         "tags": [
           "Product"
         ]
@@ -1590,16 +1624,81 @@
     },
     "/food-data-central/v1/foods/search": {
       "get": {
-        "operationId": "FoodDataCentralController_search",
+        "description": "Search for foods using keywords. Results can be filtered by dataType and there are options for result page sizes or sorting.",
+        "operationId": "getFoodsSearch",
         "parameters": [
           {
-            "name": "brandOwner",
+            "name": "query",
+            "required": true,
+            "in": "query",
+            "description": "One or more search terms. The string may include search operators.",
+            "schema": {
+              "example": "cheddar cheese",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dataType",
             "required": false,
             "in": "query",
-            "description": "Optional. Filter results based on the brand owner of the food. Only applies to Branded Foods",
+            "description": "Optional. Filter on a specific data type; specify one or more values in an array.",
             "schema": {
-              "nullable": true,
-              "type": "string"
+              "minItems": 1,
+              "maxItems": 4,
+              "example": [
+                "Foundation",
+                "SR Legacy"
+              ],
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Branded",
+                  "Foundation",
+                  "Survey (FNDDS)",
+                  "SR Legacy"
+                ]
+              }
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "Optional. Maximum number of results to return for the current page. Default is 50.",
+            "schema": {
+              "minimum": 1,
+              "maximum": 200,
+              "default": 50,
+              "example": 25,
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "required": false,
+            "in": "query",
+            "description": "Optional. Page number to retrieve.",
+            "schema": {
+              "default": 1,
+              "example": 2,
+              "type": "number"
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Optional. Specify one of the possible values to sort by that field.",
+            "schema": {
+              "example": "dataType.keyword",
+              "type": "string",
+              "enum": [
+                "dataType.keyword",
+                "lowercaseDescription.keyword",
+                "fdcId",
+                "publishedDate"
+              ]
             }
           },
           {
@@ -1608,83 +1707,41 @@
             "in": "query",
             "description": "Optional. The sort direction for the results. Only applicable if sortBy is specified.",
             "schema": {
+              "example": "asc",
+              "type": "string",
               "enum": [
                 "asc",
                 "desc"
-              ],
-              "type": "string"
+              ]
             }
           },
           {
-            "name": "sortBy",
+            "name": "brandOwner",
             "required": false,
             "in": "query",
-            "description": "Optional. Specify one of the possible values to sort by that field. Note, dataType.keyword will be dataType and lowercaseDescription.keyword will be description in future releases.",
+            "description": "Optional. Filter results based on the brand owner of the food. Only applies to Branded Foods",
             "schema": {
-              "enum": [
-                "dataType.keyword",
-                "lowercaseDescription.keyword",
-                "fdcId",
-                "publishedDate"
-              ],
-              "type": "string"
-            }
-          },
-          {
-            "name": "pageNumber",
-            "required": false,
-            "in": "query",
-            "description": "Optional. Page number to retrieve. The offset into the overall result set is expressed as (pageNumber * pageSize)",
-            "schema": {
-              "example": 1,
-              "type": "number"
-            }
-          },
-          {
-            "name": "pageSize",
-            "required": false,
-            "in": "query",
-            "description": "Optional. Maximum number of results to return for the current page. Default is 25.",
-            "schema": {
-              "example": 25,
-              "type": "number"
-            }
-          },
-          {
-            "name": "dataType",
-            "required": false,
-            "in": "query",
-            "style": "form",
-            "explode": false,
-            "description": "Optional. Filter on a specific data type; specify one or more values in an array.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "query",
-            "required": true,
-            "in": "query",
-            "schema": {
+              "example": "Kar Nut Products Company",
               "type": "string"
             }
           }
         ],
         "responses": {
-          "404": {
-            "description": "Not found"
+          "200": {
+            "description": "List of foods that matched search terms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResultDto"
+                }
+              }
+            }
           },
-          "429": {
-            "description": "Too many requests, just call this api 100 times per minute"
-          },
-          "500": {
-            "description": "Internal server error"
+          "400": {
+            "description": "Bad input parameter"
           }
         },
-        "summary": "Search food information in Food Data Central",
+        "summary": "Returns a list of foods that matched search (query) keywords",
         "tags": [
           "Food Data Central API"
         ]
@@ -1861,10 +1918,10 @@
           },
           "imageUrl": {
             "nullable": true,
-            "type": "array",
             "items": {
-              "type": "string"
-            }
+              "type": "array"
+            },
+            "type": "array"
           },
           "count": {
             "type": "number"
@@ -1953,21 +2010,21 @@
             "description": "Code number of the product"
           },
           "codeType": {
-            "type": "string",
+            "type": "object",
             "description": "Code type (optional)"
           },
           "productName": {
-            "type": "string",
+            "type": "object",
             "description": "Product name (optional)"
           },
           "brand": {
-            "type": "string"
+            "type": "object"
           },
           "manufacturer": {
-            "type": "string"
+            "type": "object"
           },
           "description": {
-            "type": "string"
+            "type": "object"
           },
           "ingredients": {
             "type": "array",
@@ -1979,28 +2036,29 @@
             "type": "object"
           },
           "usageInstruction": {
-            "type": "string"
+            "type": "object"
           },
           "storageInstruction": {
-            "type": "string"
+            "type": "object"
           },
           "countryOfOrigin": {
-            "type": "string"
+            "type": "object"
           },
           "category": {
-            "type": "string"
+            "type": "object"
           },
           "labelKey": {
-            "type": "string"
+            "type": "object"
           },
           "phrase": {
-            "type": "string"
+            "type": "object"
           },
           "imageUrl": {
-            "type": "array",
+            "nullable": true,
             "items": {
-              "type": "string"
-            }
+              "type": "array"
+            },
+            "type": "array"
           }
         },
         "required": [
@@ -2539,6 +2597,253 @@
         },
         "required": [
           "products"
+        ]
+      },
+      "FoodSearchCriteriaDto": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search terms to use in the search.",
+            "example": "Cheddar cheese"
+          },
+          "dataType": {
+            "type": "array",
+            "description": "Filter on a specific data type.",
+            "example": [
+              "Foundation",
+              "SR Legacy"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "Branded",
+                "Foundation",
+                "Survey (FNDDS)",
+                "SR Legacy"
+              ]
+            }
+          },
+          "pageSize": {
+            "type": "number",
+            "description": "Maximum number of results to return. Default is 50.",
+            "example": 25,
+            "minimum": 1,
+            "maximum": 200
+          },
+          "pageNumber": {
+            "type": "number",
+            "description": "Page number to retrieve.",
+            "example": 2
+          },
+          "sortBy": {
+            "type": "string",
+            "description": "Field to sort the results by.",
+            "enum": [
+              "dataType.keyword",
+              "lowercaseDescription.keyword",
+              "fdcId",
+              "publishedDate"
+            ],
+            "example": "lowercaseDescription.keyword"
+          },
+          "sortOrder": {
+            "type": "string",
+            "description": "The sort direction for the results.",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "example": "asc"
+          },
+          "brandOwner": {
+            "type": "string",
+            "description": "Filter results based on the brand owner.",
+            "example": "Kar Nut Products Company"
+          },
+          "tradeChannel": {
+            "type": "array",
+            "description": "Filter foods containing any of the specified trade channels.",
+            "example": [
+              "CHILD_NUTRITION_FOOD_PROGRAMS",
+              "GROCERY"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "CHILD_NUTRITION_FOOD_PROGRAMS",
+                "DRUG",
+                "FOOD_SERVICE",
+                "GROCERY",
+                "MASS_MERCHANDISING",
+                "MILITARY",
+                "ONLINE",
+                "VENDING"
+              ]
+            }
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Filter foods published on or after this date. Format: YYYY-MM-DD",
+            "example": "2021-01-01"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Filter foods published on or before this date. Format: YYYY-MM-DD",
+            "example": "2021-12-30"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "AbridgedFoodNutrientDto": {
+        "type": "object",
+        "properties": {
+          "nutrientId": {
+            "type": "number",
+            "example": 1008,
+            "description": "The ID of the nutrient."
+          },
+          "nutrientName": {
+            "type": "string",
+            "example": "Protein",
+            "description": "The name of the nutrient."
+          },
+          "unitName": {
+            "type": "string",
+            "example": "g",
+            "description": "The unit of the nutrient measurement."
+          },
+          "value": {
+            "type": "number",
+            "example": 25,
+            "description": "The value of the nutrient."
+          }
+        },
+        "required": [
+          "nutrientId",
+          "nutrientName",
+          "unitName",
+          "value"
+        ]
+      },
+      "SearchResultFoodDto": {
+        "type": "object",
+        "properties": {
+          "fdcId": {
+            "type": "number",
+            "description": "Unique ID of the food.",
+            "example": 45001529
+          },
+          "dataType": {
+            "type": "string",
+            "description": "The type of the food data.",
+            "example": "Branded"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the food.",
+            "example": "BROCCOLI"
+          },
+          "foodCode": {
+            "type": "string",
+            "description": "Any A unique ID identifying the food within FNDDS."
+          },
+          "foodNutrients": {
+            "description": "List of nutrients for the food.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbridgedFoodNutrientDto"
+            }
+          },
+          "publicationDate": {
+            "type": "string",
+            "description": "Date the item was published to FDC.",
+            "example": "4/1/2019"
+          },
+          "scientificName": {
+            "type": "string",
+            "description": "The scientific name of the food."
+          },
+          "brandOwner": {
+            "type": "string",
+            "description": "Brand owner for the food. Only applies to Branded Foods.",
+            "example": "Supervalu, Inc."
+          },
+          "gtinUpc": {
+            "type": "string",
+            "description": "GTIN or UPC code identifying the food. Only applies to Branded Foods.",
+            "example": "041303020937"
+          },
+          "ingredients": {
+            "type": "string",
+            "description": "The list of ingredients (as it appears on the product label). Only applies to Branded Foods."
+          },
+          "ndbNumber": {
+            "type": "number",
+            "description": "Unique number assigned for foundation foods. Only applies to Foundation and SRLegacy Foods."
+          },
+          "additionalDescriptions": {
+            "type": "string",
+            "description": "Any additional descriptions of the food.",
+            "example": "Coon; sharp cheese; Tillamook; Hoop; Pioneer; New York; Wisconsin; Longhorn"
+          },
+          "allHighlightFields": {
+            "type": "string",
+            "description": "allHighlightFields"
+          },
+          "score": {
+            "type": "number",
+            "description": "Relative score indicating how well the food matches the search criteria.",
+            "format": "float"
+          }
+        },
+        "required": [
+          "fdcId",
+          "description"
+        ]
+      },
+      "SearchResultDto": {
+        "type": "object",
+        "properties": {
+          "foodSearchCriteria": {
+            "description": "The criteria used for the food search.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FoodSearchCriteriaDto"
+              }
+            ]
+          },
+          "totalHits": {
+            "type": "number",
+            "description": "The total number of foods found matching the search criteria.",
+            "example": 1034
+          },
+          "currentPage": {
+            "type": "number",
+            "description": "The current page of results being returned.",
+            "example": 1
+          },
+          "totalPages": {
+            "type": "number",
+            "description": "The total number of pages found matching the search criteria.",
+            "example": 21
+          },
+          "foods": {
+            "description": "The list of foods found matching the search criteria.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchResultFoodDto"
+            }
+          }
+        },
+        "required": [
+          "foodSearchCriteria",
+          "totalHits",
+          "currentPage",
+          "totalPages",
+          "foods"
         ]
       }
     }

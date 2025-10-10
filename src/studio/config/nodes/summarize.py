@@ -106,8 +106,20 @@ async def summarize_conversation(state: MainState):
                             tool_summaries.append(f"searched for product: {query}")
                         elif tool_name == "update_product_date":
                             tool_summaries.append("updated product expiration information")
+                        elif tool_name == "delete_product_date":
+                            date_ids = tool_args.get("date_ids", [])
+                            count = len(date_ids) if isinstance(date_ids, list) else 1
+                            if count > 1:
+                                tool_summaries.append(f"removed {count} date tracking entries from inventory")
+                            else:
+                                tool_summaries.append("removed date tracking entry from inventory")
                         elif tool_name == "delete_product":
-                            tool_summaries.append("removed product from inventory")
+                            product_ids = tool_args.get("product_ids", [])
+                            count = len(product_ids) if isinstance(product_ids, list) else 1
+                            if count > 1:
+                                tool_summaries.append(f"removed {count} products from inventory")
+                            else:
+                                tool_summaries.append("removed product from inventory")
                         # Spoonacular recipe tools
                         elif tool_name == "search_recipes":
                             query = tool_args.get("query", "")[:30]
@@ -200,9 +212,22 @@ async def summarize_conversation(state: MainState):
                                 narrative_messages.append("Product date updated successfully")
                             elif "error" in parsed_content:
                                 narrative_messages.append(f"Update failed: {parsed_content['error']}")
+                        elif tool_name == "delete_product_date":
+                            if "success" in parsed_content:
+                                deleted_count = parsed_content.get("deleted_count", 1)
+                                if deleted_count > 1:
+                                    narrative_messages.append(f"{deleted_count} date entries deleted successfully")
+                                else:
+                                    narrative_messages.append("Date entry deleted successfully")
+                            elif "error" in parsed_content:
+                                narrative_messages.append(f"Date deletion failed: {parsed_content['error']}")
                         elif tool_name == "delete_product":
                             if "success" in parsed_content:
-                                narrative_messages.append("Product deleted successfully")
+                                deleted_count = parsed_content.get("deleted_count", 1)
+                                if deleted_count > 1:
+                                    narrative_messages.append(f"{deleted_count} products deleted successfully")
+                                else:
+                                    narrative_messages.append("Product deleted successfully")
                             elif "error" in parsed_content:
                                 narrative_messages.append(f"Deletion failed: {parsed_content['error']}")
                         # Spoonacular tool results
