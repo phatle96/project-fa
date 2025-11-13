@@ -80,24 +80,47 @@ mcp = FastMCP("FreshAlertMCP_V2", port=PORT)
 
 
 @mcp.tool()
-async def get_user_products():
+async def get_user_products(is_expired: int = None):
     """
-    Get all products for the current user.
+    Get products for the current user with optional expiration filtering.
 
-    This tool retrieves all products associated with the authenticated user,
+    This tool retrieves products associated with the authenticated user,
     including product details, expiration dates, and quantity information.
+    Use the is_expired parameter to filter products by their expiration status.
+
+    Args:
+        is_expired: Optional filter for product expiration status (default: None)
+                   - 1: Get only expired products
+                   - -1: Get only non-expired products  
+                   - 0 or None: Get all products (expired and non-expired)
 
     Returns:
         Dictionary containing user's products and metadata
 
     Examples:
-        # Get all user products
+        # Get all user products (expired and non-expired)
         await get_user_products()
+        
+        # Get only non-expired products (for personalized suggestions)
+        await get_user_products(is_expired=-1)
+        
+        # Get only expired products
+        await get_user_products(is_expired=1)
+        
+        # Get all products explicitly
+        await get_user_products(is_expired=0)
     """
     try:
+        # Input validation
+        if is_expired is not None and is_expired not in [1, -1, 0]:
+            raise HTTPException(
+                status_code=400,
+                detail="is_expired parameter must be 1 (expired), -1 (non-expired), or 0 (all products)"
+            )
+        
         token = validate_auth_token()
         tools = FreshAlertToolsV2(bearer_token=token)
-        return await tools.get_user_products()
+        return await tools.get_user_products(is_expired=is_expired)
     except HTTPException:
         raise
     except Exception as e:

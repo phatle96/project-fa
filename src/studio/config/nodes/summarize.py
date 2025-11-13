@@ -84,7 +84,15 @@ async def summarize_conversation(state: MainState):
 
                         # Create human-readable summaries for Fresh Alert tools
                         if tool_name == "get_user_products":
-                            tool_summaries.append("retrieved user's food inventory")
+                            is_expired = tool_args.get("is_expired")
+                            if is_expired == -1:
+                                tool_summaries.append("retrieved user's non-expired products")
+                            elif is_expired == 1:
+                                tool_summaries.append("retrieved user's expired products")
+                            elif is_expired == 0:
+                                tool_summaries.append("retrieved all user's products (expired and non-expired)")
+                            else:
+                                tool_summaries.append("retrieved user's food inventory")
                         elif tool_name == "get_expired_products":
                             days = tool_args.get("days", "")
                             if days:

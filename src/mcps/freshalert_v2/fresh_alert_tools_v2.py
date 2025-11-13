@@ -182,23 +182,52 @@ class FreshAlertToolsV2:
             return None
         return value
     
-    async def get_user_products(self) -> Dict[str, Any]:
+    async def get_user_products(self, is_expired: Optional[int] = None) -> Dict[str, Any]:
         """
-        Get all products for the current user.
+        Get products for the current user with optional expiration filtering.
         
-        This tool retrieves all products associated with the authenticated user,
+        This tool retrieves products associated with the authenticated user,
         including product details, expiration dates, and quantity information.
+        
+        Args:
+            is_expired: Optional filter for product expiration status
+                       - 1: Get only expired products
+                       - -1: Get only non-expired products
+                       - 0 or None: Get all products (expired and non-expired)
         
         Returns:
             Dictionary containing user's products and metadata
             
         Examples:
-            # Get all user products
+            # Get all user products (expired and non-expired)
             await get_user_products()
+            
+            # Get only non-expired products
+            await get_user_products(is_expired=-1)
+            
+            # Get only expired products
+            await get_user_products(is_expired=1)
+            
+            # Get all products explicitly
+            await get_user_products(is_expired=0)
         """
         try:
+            # Validate is_expired parameter
+            if is_expired is not None and is_expired not in [1, -1, 0]:
+                return self._format_error_response(
+                    "is_expired parameter must be 1 (expired), -1 (non-expired), or 0 (all products)",
+                    error_type="validation_error",
+                    products=[]
+                )
+            
+            # Convert to float for API call, or use UNSET
+            api_is_expired = UNSET if is_expired is None else float(is_expired)
+            
             async with self._get_client() as client:
-                response = await product_controller_find_all_by_user.asyncio_detailed(client=client)
+                response = await product_controller_find_all_by_user.asyncio_detailed(
+                    client=client,
+                    is_expired=api_is_expired
+                )
                 
                 if response.status_code == 404:
                     logger.info("No products found for user")

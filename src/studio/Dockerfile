@@ -1,8 +1,8 @@
-FROM langchain/langgraph-api:3.11
+FROM langchain/langgraph-api:0.4.27-py3.11
 
 
-ADD requirements.txt /deps/outer-studio/src/requirements.txt
-RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --prerelease=allow --no-cache-dir -c /api/constraints.txt -r /deps/outer-studio/src/requirements.txt
+# ADD requirements.txt /deps/outer-studio/src/requirements.txt
+# RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --prerelease=allow --no-cache-dir -c /api/constraints.txt -r /deps/outer-studio/src/requirements.txt
 
 # RUN PYTHONDONTWRITEBYTECODE=1 uv pip install --system --prerelease=allow --no-cache-dir -c /api/constraints.txt -r requirements.txt
 

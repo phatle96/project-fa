@@ -2,6 +2,7 @@ import sys
 import asyncio
 
 from langchain_core.messages import SystemMessage
+from langgraph.config import get_config
 
 from ..states import MainState
 from ..prompts import FRESH_ALERT_AGENT_SYSTEM_PROMPT
@@ -11,6 +12,7 @@ from ..models import get_tools, get_model
 
 # Define the logic to call the model
 async def call_model(state: MainState, config):
+    # config = get_config()
     tools = await get_tools(config=config)
     model = get_model(model_config={"provider": "openai", "model_name": "gpt-5-mini"})
 

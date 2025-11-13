@@ -6,6 +6,7 @@ from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
     from ..models.date_response_model import DateResponseModel
+    from ..models.ingredient_dto import IngredientDto
 
 
 T = TypeVar("T", bound="ProductResponseDto")
@@ -20,9 +21,10 @@ class ProductResponseDto:
         code_type (Union[None, str]):
         product_name (Union[None, str]):
         brand (Union[None, str]):
+        type_ (Union[None, str]):
         manufacturer (Union[None, str]):
         description (Union[None, str]):
-        image_url (Union[None, list[str]]):
+        ingredients (list['IngredientDto']):
         usage_instruction (Union[None, str]):
         storage_instruction (Union[None, str]):
         country_of_origin (Union[None, str]):
@@ -30,6 +32,7 @@ class ProductResponseDto:
         nutrition_fact (Union[None, str]):
         label_key (Union[None, str]):
         phrase (Union[None, str]):
+        image_url (Union[None, list[str]]):
         date_product_users (Union[None, list['DateResponseModel']]):
     """
 
@@ -38,9 +41,10 @@ class ProductResponseDto:
     code_type: Union[None, str]
     product_name: Union[None, str]
     brand: Union[None, str]
+    type_: Union[None, str]
     manufacturer: Union[None, str]
     description: Union[None, str]
-    image_url: Union[None, list[str]]
+    ingredients: list["IngredientDto"]
     usage_instruction: Union[None, str]
     storage_instruction: Union[None, str]
     country_of_origin: Union[None, str]
@@ -48,6 +52,7 @@ class ProductResponseDto:
     nutrition_fact: Union[None, str]
     label_key: Union[None, str]
     phrase: Union[None, str]
+    image_url: Union[None, list[str]]
     date_product_users: Union[None, list["DateResponseModel"]]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -66,18 +71,19 @@ class ProductResponseDto:
         brand: Union[None, str]
         brand = self.brand
 
+        type_: Union[None, str]
+        type_ = self.type_
+
         manufacturer: Union[None, str]
         manufacturer = self.manufacturer
 
         description: Union[None, str]
         description = self.description
 
-        image_url: Union[None, list[str]]
-        if isinstance(self.image_url, list):
-            image_url = self.image_url
-
-        else:
-            image_url = self.image_url
+        ingredients = []
+        for ingredients_item_data in self.ingredients:
+            ingredients_item = ingredients_item_data.to_dict()
+            ingredients.append(ingredients_item)
 
         usage_instruction: Union[None, str]
         usage_instruction = self.usage_instruction
@@ -100,6 +106,13 @@ class ProductResponseDto:
         phrase: Union[None, str]
         phrase = self.phrase
 
+        image_url: Union[None, list[str]]
+        if isinstance(self.image_url, list):
+            image_url = self.image_url
+
+        else:
+            image_url = self.image_url
+
         date_product_users: Union[None, list[dict[str, Any]]]
         if isinstance(self.date_product_users, list):
             date_product_users = []
@@ -119,9 +132,10 @@ class ProductResponseDto:
                 "codeType": code_type,
                 "productName": product_name,
                 "brand": brand,
+                "type": type_,
                 "manufacturer": manufacturer,
                 "description": description,
-                "imageUrl": image_url,
+                "ingredients": ingredients,
                 "usageInstruction": usage_instruction,
                 "storageInstruction": storage_instruction,
                 "countryOfOrigin": country_of_origin,
@@ -129,6 +143,7 @@ class ProductResponseDto:
                 "nutritionFact": nutrition_fact,
                 "labelKey": label_key,
                 "phrase": phrase,
+                "imageUrl": image_url,
                 "dateProductUsers": date_product_users,
             }
         )
@@ -138,6 +153,7 @@ class ProductResponseDto:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.date_response_model import DateResponseModel
+        from ..models.ingredient_dto import IngredientDto
 
         d = dict(src_dict)
         id = d.pop("id")
@@ -170,6 +186,13 @@ class ProductResponseDto:
 
         brand = _parse_brand(d.pop("brand"))
 
+        def _parse_type_(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        type_ = _parse_type_(d.pop("type"))
+
         def _parse_manufacturer(data: object) -> Union[None, str]:
             if data is None:
                 return data
@@ -184,20 +207,12 @@ class ProductResponseDto:
 
         description = _parse_description(d.pop("description"))
 
-        def _parse_image_url(data: object) -> Union[None, list[str]]:
-            if data is None:
-                return data
-            try:
-                if not isinstance(data, list):
-                    raise TypeError()
-                image_url_type_0 = cast(list[str], data)
+        ingredients = []
+        _ingredients = d.pop("ingredients")
+        for ingredients_item_data in _ingredients:
+            ingredients_item = IngredientDto.from_dict(ingredients_item_data)
 
-                return image_url_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union[None, list[str]], data)
-
-        image_url = _parse_image_url(d.pop("imageUrl"))
+            ingredients.append(ingredients_item)
 
         def _parse_usage_instruction(data: object) -> Union[None, str]:
             if data is None:
@@ -248,6 +263,21 @@ class ProductResponseDto:
 
         phrase = _parse_phrase(d.pop("phrase"))
 
+        def _parse_image_url(data: object) -> Union[None, list[str]]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                image_url_type_0 = cast(list[str], data)
+
+                return image_url_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[None, list[str]], data)
+
+        image_url = _parse_image_url(d.pop("imageUrl"))
+
         def _parse_date_product_users(data: object) -> Union[None, list["DateResponseModel"]]:
             if data is None:
                 return data
@@ -274,9 +304,10 @@ class ProductResponseDto:
             code_type=code_type,
             product_name=product_name,
             brand=brand,
+            type_=type_,
             manufacturer=manufacturer,
             description=description,
-            image_url=image_url,
+            ingredients=ingredients,
             usage_instruction=usage_instruction,
             storage_instruction=storage_instruction,
             country_of_origin=country_of_origin,
@@ -284,6 +315,7 @@ class ProductResponseDto:
             nutrition_fact=nutrition_fact,
             label_key=label_key,
             phrase=phrase,
+            image_url=image_url,
             date_product_users=date_product_users,
         )
 

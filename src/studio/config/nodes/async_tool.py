@@ -1,6 +1,7 @@
 import asyncio
 
 from langgraph.prebuilt import ToolNode
+from langgraph.config import get_config
 # from langchain.agents.tool_node import ToolNode
 
 from ..states import MainState
@@ -14,6 +15,9 @@ class AsyncToolNode:
         self.handle_tool_errors = handle_tool_errors
 
     async def __call__(self, state: MainState, config):
+        
+        # config = get_config()
+        
         tools = await get_tools(config=config)
         
         # Track current tool calls before execution

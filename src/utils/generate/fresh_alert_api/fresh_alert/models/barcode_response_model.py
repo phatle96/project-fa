@@ -20,14 +20,17 @@ class BarcodeResponseModel:
         code_type (Union[None, str]):
         product_name (Union[None, str]):
         brand (Union[None, str]):
+        type_ (Union[None, str]):
         manufacturer (Union[None, str]):
         description (Union[None, str]):
         ingredients (list['IngredientDto']):
-        nutrition_fact (Union[None, str]):
         usage_instruction (Union[None, str]):
         storage_instruction (Union[None, str]):
         country_of_origin (Union[None, str]):
         category (Union[None, str]):
+        nutrition_fact (Union[None, str]):
+        label_key (Union[None, str]):
+        phrase (Union[None, str]):
         image_url (Union[None, list[str]]):
     """
 
@@ -36,14 +39,17 @@ class BarcodeResponseModel:
     code_type: Union[None, str]
     product_name: Union[None, str]
     brand: Union[None, str]
+    type_: Union[None, str]
     manufacturer: Union[None, str]
     description: Union[None, str]
     ingredients: list["IngredientDto"]
-    nutrition_fact: Union[None, str]
     usage_instruction: Union[None, str]
     storage_instruction: Union[None, str]
     country_of_origin: Union[None, str]
     category: Union[None, str]
+    nutrition_fact: Union[None, str]
+    label_key: Union[None, str]
+    phrase: Union[None, str]
     image_url: Union[None, list[str]]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -62,6 +68,9 @@ class BarcodeResponseModel:
         brand: Union[None, str]
         brand = self.brand
 
+        type_: Union[None, str]
+        type_ = self.type_
+
         manufacturer: Union[None, str]
         manufacturer = self.manufacturer
 
@@ -72,9 +81,6 @@ class BarcodeResponseModel:
         for ingredients_item_data in self.ingredients:
             ingredients_item = ingredients_item_data.to_dict()
             ingredients.append(ingredients_item)
-
-        nutrition_fact: Union[None, str]
-        nutrition_fact = self.nutrition_fact
 
         usage_instruction: Union[None, str]
         usage_instruction = self.usage_instruction
@@ -87,6 +93,15 @@ class BarcodeResponseModel:
 
         category: Union[None, str]
         category = self.category
+
+        nutrition_fact: Union[None, str]
+        nutrition_fact = self.nutrition_fact
+
+        label_key: Union[None, str]
+        label_key = self.label_key
+
+        phrase: Union[None, str]
+        phrase = self.phrase
 
         image_url: Union[None, list[str]]
         if isinstance(self.image_url, list):
@@ -104,14 +119,17 @@ class BarcodeResponseModel:
                 "codeType": code_type,
                 "productName": product_name,
                 "brand": brand,
+                "type": type_,
                 "manufacturer": manufacturer,
                 "description": description,
                 "ingredients": ingredients,
-                "nutritionFact": nutrition_fact,
                 "usageInstruction": usage_instruction,
                 "storageInstruction": storage_instruction,
                 "countryOfOrigin": country_of_origin,
                 "category": category,
+                "nutritionFact": nutrition_fact,
+                "labelKey": label_key,
+                "phrase": phrase,
                 "imageUrl": image_url,
             }
         )
@@ -153,6 +171,13 @@ class BarcodeResponseModel:
 
         brand = _parse_brand(d.pop("brand"))
 
+        def _parse_type_(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        type_ = _parse_type_(d.pop("type"))
+
         def _parse_manufacturer(data: object) -> Union[None, str]:
             if data is None:
                 return data
@@ -173,13 +198,6 @@ class BarcodeResponseModel:
             ingredients_item = IngredientDto.from_dict(ingredients_item_data)
 
             ingredients.append(ingredients_item)
-
-        def _parse_nutrition_fact(data: object) -> Union[None, str]:
-            if data is None:
-                return data
-            return cast(Union[None, str], data)
-
-        nutrition_fact = _parse_nutrition_fact(d.pop("nutritionFact"))
 
         def _parse_usage_instruction(data: object) -> Union[None, str]:
             if data is None:
@@ -209,6 +227,27 @@ class BarcodeResponseModel:
 
         category = _parse_category(d.pop("category"))
 
+        def _parse_nutrition_fact(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        nutrition_fact = _parse_nutrition_fact(d.pop("nutritionFact"))
+
+        def _parse_label_key(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        label_key = _parse_label_key(d.pop("labelKey"))
+
+        def _parse_phrase(data: object) -> Union[None, str]:
+            if data is None:
+                return data
+            return cast(Union[None, str], data)
+
+        phrase = _parse_phrase(d.pop("phrase"))
+
         def _parse_image_url(data: object) -> Union[None, list[str]]:
             if data is None:
                 return data
@@ -230,14 +269,17 @@ class BarcodeResponseModel:
             code_type=code_type,
             product_name=product_name,
             brand=brand,
+            type_=type_,
             manufacturer=manufacturer,
             description=description,
             ingredients=ingredients,
-            nutrition_fact=nutrition_fact,
             usage_instruction=usage_instruction,
             storage_instruction=storage_instruction,
             country_of_origin=country_of_origin,
             category=category,
+            nutrition_fact=nutrition_fact,
+            label_key=label_key,
+            phrase=phrase,
             image_url=image_url,
         )
 

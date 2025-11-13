@@ -5,25 +5,23 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.serp_api_controller_get_information_product_response_200 import (
-    SerpApiControllerGetInformationProductResponse200,
-)
-from ...types import UNSET, Response, Unset
+from ...models.serp_api_controller_image_recognition_response_200 import SerpApiControllerImageRecognitionResponse200
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
     *,
-    title: Union[Unset, str] = UNSET,
+    image_url: str,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
-    params["title"] = title
+    params["imageUrl"] = image_url
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/serpapi/product-info",
+        "url": "/serpapi/image-recognition",
         "params": params,
     }
 
@@ -32,9 +30,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, SerpApiControllerGetInformationProductResponse200]]:
+) -> Optional[Union[Any, SerpApiControllerImageRecognitionResponse200]]:
     if response.status_code == 200:
-        response_200 = SerpApiControllerGetInformationProductResponse200.from_dict(response.json())
+        response_200 = SerpApiControllerImageRecognitionResponse200.from_dict(response.json())
 
         return response_200
 
@@ -58,7 +56,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, SerpApiControllerGetInformationProductResponse200]]:
+) -> Response[Union[Any, SerpApiControllerImageRecognitionResponse200]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,23 +68,23 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    title: Union[Unset, str] = UNSET,
-) -> Response[Union[Any, SerpApiControllerGetInformationProductResponse200]]:
-    """Get Open Food Fact product information
+    image_url: str,
+) -> Response[Union[Any, SerpApiControllerImageRecognitionResponse200]]:
+    """Get Food product information
 
     Args:
-        title (Union[Unset, str]):
+        image_url (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, SerpApiControllerGetInformationProductResponse200]]
+        Response[Union[Any, SerpApiControllerImageRecognitionResponse200]]
     """
 
     kwargs = _get_kwargs(
-        title=title,
+        image_url=image_url,
     )
 
     response = client.get_httpx_client().request(
@@ -99,47 +97,47 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    title: Union[Unset, str] = UNSET,
-) -> Optional[Union[Any, SerpApiControllerGetInformationProductResponse200]]:
-    """Get Open Food Fact product information
+    image_url: str,
+) -> Optional[Union[Any, SerpApiControllerImageRecognitionResponse200]]:
+    """Get Food product information
 
     Args:
-        title (Union[Unset, str]):
+        image_url (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, SerpApiControllerGetInformationProductResponse200]
+        Union[Any, SerpApiControllerImageRecognitionResponse200]
     """
 
     return sync_detailed(
         client=client,
-        title=title,
+        image_url=image_url,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    title: Union[Unset, str] = UNSET,
-) -> Response[Union[Any, SerpApiControllerGetInformationProductResponse200]]:
-    """Get Open Food Fact product information
+    image_url: str,
+) -> Response[Union[Any, SerpApiControllerImageRecognitionResponse200]]:
+    """Get Food product information
 
     Args:
-        title (Union[Unset, str]):
+        image_url (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, SerpApiControllerGetInformationProductResponse200]]
+        Response[Union[Any, SerpApiControllerImageRecognitionResponse200]]
     """
 
     kwargs = _get_kwargs(
-        title=title,
+        image_url=image_url,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -150,24 +148,24 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    title: Union[Unset, str] = UNSET,
-) -> Optional[Union[Any, SerpApiControllerGetInformationProductResponse200]]:
-    """Get Open Food Fact product information
+    image_url: str,
+) -> Optional[Union[Any, SerpApiControllerImageRecognitionResponse200]]:
+    """Get Food product information
 
     Args:
-        title (Union[Unset, str]):
+        image_url (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, SerpApiControllerGetInformationProductResponse200]
+        Union[Any, SerpApiControllerImageRecognitionResponse200]
     """
 
     return (
         await asyncio_detailed(
             client=client,
-            title=title,
+            image_url=image_url,
         )
     ).parsed

@@ -62,8 +62,7 @@ from .reverse_image_dto_search_parameters import ReverseImageDtoSearchParameters
 from .reverse_image_element_result import ReverseImageElementResult
 from .search_result_dto import SearchResultDto
 from .search_result_food_dto import SearchResultFoodDto
-from .serapi_response_dto import SerapiResponseDto
-from .serp_api_controller_get_information_product_response_200 import SerpApiControllerGetInformationProductResponse200
+from .serp_api_controller_image_recognition_response_200 import SerpApiControllerImageRecognitionResponse200
 from .serp_api_controller_reverse_image_search_body import SerpApiControllerReverseImageSearchBody
 from .serp_api_controller_reverse_image_search_response_200 import SerpApiControllerReverseImageSearchResponse200
 from .update_date_product_user_dto import UpdateDateProductUserDto
@@ -125,8 +124,7 @@ __all__ = (
     "ReverseImageElementResult",
     "SearchResultDto",
     "SearchResultFoodDto",
-    "SerapiResponseDto",
-    "SerpApiControllerGetInformationProductResponse200",
+    "SerpApiControllerImageRecognitionResponse200",
     "SerpApiControllerReverseImageSearchBody",
     "SerpApiControllerReverseImageSearchResponse200",
     "UpdateDateProductUserDto",

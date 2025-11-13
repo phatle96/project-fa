@@ -66,6 +66,9 @@ async def get_tools(config: Optional[RunnableConfig] = None) -> List:
 
     fresh_alert_token = ""
     headers = {}
+    
+    # print("config: ", config)
+    
     if config and "configurable" in config:
         
         configurable = config.get("configurable", {})

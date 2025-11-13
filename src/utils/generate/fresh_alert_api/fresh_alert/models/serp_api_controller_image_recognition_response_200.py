@@ -7,28 +7,28 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.serapi_response_dto import SerapiResponseDto
+    from ..models.product_response_dto import ProductResponseDto
 
 
-T = TypeVar("T", bound="SerpApiControllerGetInformationProductResponse200")
+T = TypeVar("T", bound="SerpApiControllerImageRecognitionResponse200")
 
 
 @_attrs_define
-class SerpApiControllerGetInformationProductResponse200:
+class SerpApiControllerImageRecognitionResponse200:
     """
     Attributes:
         res (float):  Example: 1.
         error (Union[None, Unset, str]):
         error_code (Union[None, Unset, str]):
         access_token (Union[None, Unset, str]):
-        data (Union[Unset, SerapiResponseDto]):
+        data (Union[Unset, ProductResponseDto]):
     """
 
     res: float
     error: Union[None, Unset, str] = UNSET
     error_code: Union[None, Unset, str] = UNSET
     access_token: Union[None, Unset, str] = UNSET
-    data: Union[Unset, "SerapiResponseDto"] = UNSET
+    data: Union[Unset, "ProductResponseDto"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -76,7 +76,7 @@ class SerpApiControllerGetInformationProductResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.serapi_response_dto import SerapiResponseDto
+        from ..models.product_response_dto import ProductResponseDto
 
         d = dict(src_dict)
         res = d.pop("res")
@@ -109,13 +109,13 @@ class SerpApiControllerGetInformationProductResponse200:
         access_token = _parse_access_token(d.pop("accessToken", UNSET))
 
         _data = d.pop("data", UNSET)
-        data: Union[Unset, SerapiResponseDto]
+        data: Union[Unset, ProductResponseDto]
         if isinstance(_data, Unset):
             data = UNSET
         else:
-            data = SerapiResponseDto.from_dict(_data)
+            data = ProductResponseDto.from_dict(_data)
 
-        serp_api_controller_get_information_product_response_200 = cls(
+        serp_api_controller_image_recognition_response_200 = cls(
             res=res,
             error=error,
             error_code=error_code,
@@ -123,8 +123,8 @@ class SerpApiControllerGetInformationProductResponse200:
             data=data,
         )
 
-        serp_api_controller_get_information_product_response_200.additional_properties = d
-        return serp_api_controller_get_information_product_response_200
+        serp_api_controller_image_recognition_response_200.additional_properties = d
+        return serp_api_controller_image_recognition_response_200
 
     @property
     def additional_keys(self) -> list[str]:

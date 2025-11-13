@@ -46,7 +46,7 @@ langchain-text-splitters==0.3.11
 langfuse==3.5.2
 langgraph==1.0.0a4
 langgraph-api==0.4.30
-langgraph-checkpoint==2.1.1
+langgraph-checkpoint>=2.1.1
 langgraph-cli==0.4.2
 langgraph-prebuilt==0.7.0a2
 langgraph-runtime-inmem==0.14.1
